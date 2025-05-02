@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyCon Togo 2025 - Conférence Internationale Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Variables et Thèmes */
+        :root {
+            --green-togo: #006b3f;
+            --yellow-togo: #ffce00;
+            --red-togo: #d21034;
+            --dark-bg: #0f172a;
+            --dark-bg-secondary: #1e293b;
+            --dark-text: #f8fafc;
+            --dark-text-secondary: #94a3b8;
+            --light-bg: #f8fafc;
+            --light-bg-secondary: #e2e8f0;
+            --light-text: #0f172a;
+            --light-text-secondary: #475569;
+            --text-primary: var(--dark-text);
+            --text-secondary: var(--dark-text-secondary);
+            --bg-primary: var(--dark-bg);
+            --bg-secondary: var(--dark-bg-secondary);
+            --accent-primary: var(--yellow-togo);
+            --accent-secondary: var(--green-togo);
+            --accent-tertiary: var(--red-togo);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --header-height: 80px;
+            --container-max: 1200px;
+            --transition: all 0.3s ease-in-out;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        html.light {
+            --text-primary: var(--light-text);
+            --text-secondary: var(--light-text-secondary);
+            --bg-primary: var(--light-bg);
+            --bg-secondary: var(--light-bg-secondary);
+            --shadow-color: rgba(15, 23, 42, 0.1);
+            --green-togo: #006b3f;
+            --yellow-togo: #e6b700;
+            --red-togo: #d21034;
+        }
+
+        /* Styles de Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            height: 4px;
+            width: 60px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent-secondary);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        section {
+            padding: 5rem 1rem;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            border: 2px solid var(--accent-primary);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent-primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        /* Header et Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-primary);
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        header.scrolled {
+            background-color: var(--bg-secondary);
+            height: 60px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 1.5rem;
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .logo span {
+            color: var(--accent-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--text-primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin-left: 1.5rem;
+            background-color: var(--bg-secondary);
+            border-radius: 50%;
+            border: none;
+            color: var(--text-primary);
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+        }
+
+        /* Section Héros */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: var(--header-height);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            animation: fadeIn 1s 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+            animation: slideRight 1s 0.5s forwards;
+            opacity: 0;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s 0.7s forwards;
+            opacity: 0;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            animation: slideUp 1s 0.9s forwards;
+            opacity: 0;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 1;
+        }
+
+        /* Section À propos */
+        .about {
+            background-color: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            max-width: 500px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            border-radius: 0.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Section Intervenants */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .speaker-card {
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+        }
+
+        .speaker-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .speaker-info {
+            padding: 1.5rem;
+        }
+
+        .speaker-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-role {
+            color: var(--accent-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .speaker-bio {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .speaker-social {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .speaker-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .speaker-social a:hover {
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+        }
+
+        /* Section Programme */
+        .schedule {
+            background-color: var(--bg-secondary);
+        }
+
+        .schedule-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--text-secondary);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .schedule-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-btn::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        .schedule-content {
+            display: none;
+        }
+
+        .schedule-content.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .schedule-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+        }
+
+        .schedule-time {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .schedule-event h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-event p {
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .schedule-speaker {
+            font-weight: 500;
+            color: var(--accent-secondary);
+        }
+
+        /* Section Call for Speakers */
+        .call-to-action {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-box {
+            background-color: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: var(--box-shadow);
+            margin-top: 3rem;
+        }
+
+        .cta-title {
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            margin-bottom: 2rem;
+        }
+
+        /* Section Sponsors */
+        .sponsors {
+            background-color: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .sponsors-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sponsors-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+        }
+
+        .sponsor-item {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .sponsor-item:hover {
+            transform: scale(1.05);
+        }
+
+        .sponsor-item img {
+            max-width: 150px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .sponsor-item:hover img {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+
+        .become-sponsor {
+            margin-top: 3rem;
+        }
+
+        /* Section Contact */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--accent-primary);
+        }
+
+        .contact-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p, .contact-details a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--text-secondary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-primary);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-submit:hover {
+            background-color: var(--accent-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 4rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--accent-primary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-primary);
+            border-radius: 50%;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            height: 3px;
+            width: 40px;
+            background: var(--accent-primary);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            color: var(--accent-primary);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter p {
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 0.375rem 0 0 0.375rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-primary);
+            outline: none;
+        }
+
+        .newsletter-btn {
+            padding: 0 1.25rem;
+            background-color: var(--accent-primary);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 0 0.375rem 0.375rem 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--accent-secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image, .contact-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-btns .btn {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 400px;
+                height: 100vh;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px var(--shadow-color);
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(10px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-10px) rotate(-45deg);
+            }
+
+            .schedule-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .cta-box {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sponsor-item {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="#" class="logo">PyCon <span>Togo</span> 2025</a>
+            
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link active">Accueil</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="#speakers" class="nav-link">Intervenants</a></li>
+                    <li class="nav-item"><a href="#schedule" class="nav-link">Programme</a></li>
+                    <li class="nav-item"><a href="#call" class="nav-link">Appel à orateurs</a></li>
+                    <li class="nav-item"><a href="#registration" class="nav-link">Inscriptions</a></li>
+                    <li class="nav-item"><a href="#sponsors" class="nav-link">Sponsors</a></li>
+                    <li class="nav-item"><a href="#community" class="nav-link">Communauté</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+            
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Section Héros -->
+    <section class="hero" id="home">
+        <div id="particles-js" class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-subtitle">20-22 Juin, 2025 • Lomé, Togo</p>
+                <h1 class="hero-title">Construire l'Avenir de Python en Afrique</h1>
+                <p class="hero-description">
+                    Rejoignez les leaders et passionnés du monde Python pour 3 jours de conférences, ateliers et networking dans une atmosphère collaborative unique.
+                </p>
+                <div class="hero-btns">
+                    <a href="#registration" class="btn">S'inscrire maintenant</a>
+                    <a href="#schedule" class="btn btn-outline">Voir le programme</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section À propos -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>À propos de PyCon Togo</h2>
+            <div class="about-content">
+                <div class="about-text slide-up" data-delay="0.3">
+                    <p>
+                        PyCon Togo est la première conférence Python d'envergure internationale au Togo, rassemblant développeurs, entreprises, chercheurs et passionnés autour du langage Python et de son écosystème.
+                    </p>
+                    <p>
+                        Notre mission est de promouvoir l'utilisation de Python, partager les connaissances et favoriser l'innovation technologique en Afrique de l'Ouest, tout en créant des opportunités de réseautage et de collaboration.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item slide-up" data-delay="0.5">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Jours de conférence</div>
+                        </div>
+                        <div class="stat-item slide-up" data-delay="0.6">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Intervenants</div>
+                        </div>
+                        <div class="stat-item slide-up" data-delay="0.7">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Participants attendus</div>
+                        </div>
+                        <div class="stat-item slide-up" data-delay="0.8">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Ateliers pratiques</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image slide-up" data-delay="0.4">
+                    <img src="/api/placeholder/600/400" alt="PyCon Togo - Édition précédente">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Intervenants -->
+    <section class="speakers" id="speakers">
+        <div class="container">
+            <h2>Nos Intervenants</h2>
+            <p>Découvrez les experts qui partageront leur savoir et leur expérience lors de PyCon Togo 2025.</p>
+            
+            <div class="speakers-grid">
+                <div class="speaker-card slide-up" data-delay="0.3">
+                    <img src="/api/placeholder/300/300" alt="Intervenant 1" class="speaker-image">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Kofi Mensah</h3>
+                        <p class="speaker-role">Lead Developer @ Python Africa</p>
+                        <p class="speaker-bio">Spécialiste en IA et Machine Learning avec plus de 10 ans d'expérience dans le développement d'applications Python.</p>
+                        <div class="speaker-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="speaker-card slide-up" data-delay="0.4">
+                    <img src="/api/placeholder/300/300" alt="Intervenant 2" class="speaker-image">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Amina Diallo</h3>
+                        <p class="speaker-role">CTO @ TechHub Dakar</p>
+                        <p class="speaker-bio">Experte en cybersécurité et contributrice active à plusieurs projets open source Python pour la sécurité informatique.</p>
+                        <div class="speaker-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="speaker-card slide-up" data-delay="0.5">
+                    <img src="/api/placeholder/300/300" alt="Intervenant 3" class="speaker-image">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">David Osei</h3>
+                        <p class="speaker-role">Data Scientist @ Google</p>
+                        <p class="speaker-bio">Chercheur en science des données et apprentissage profond, avec une passion pour l'enseignement de Python aux débutants.</p>
+                        <div class="speaker-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="speaker-card slide-up" data-delay="0.6">
+                    <img src="/api/placeholder/300/300" alt="Intervenant 4" class="speaker-image">
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Sophie Nguyen</h3>
+                        <p class="speaker-role">Python Core Developer</p>
+                        <p class="speaker-bio">Contributrice principale au langage Python, spécialisée dans les performances et l'optimisation des applications.</p>
+                        <div class="speaker-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center" style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn">Voir tous les intervenants</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Programme -->
+    <section class="schedule" id="schedule">
+        <div class="container">
+            <h2>Programme de l'événement</h2>
+            <p>Un aperçu des sessions, ateliers et événements prévus pendant les trois jours de conférence.</p>
+            
+            <div class="schedule-tabs">
+                <button class="tab-btn active" data-day="jour1">Jour 1 - 20 Juin</button>
+                <button class="tab-btn" data-day="jour2">Jour 2 - 21 Juin</button>
+                <button class="tab-btn" data-day="jour3">Jour 3 - 22 Juin</button>
+            </div>
+            
+            <div class="schedule-content active" id="jour1">
+                <div class="schedule-item slide-up" data-delay="0.3">
+                    <div class="schedule-time">
+                        <p>08:30 - 09:30</p>
+                        <span class="schedule-track">Hall Principal</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Accueil et inscription</h3>
+                        <p>Récupération des badges et matériel de conférence</p>
+                    </div>
+                </div>
+                
+                <div class="schedule-item slide-up" data-delay="0.4">
+                    <div class="schedule-time">
+                        <p>09:30 - 10:30</p>
+                        <span class="schedule-track">Auditorium</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Keynote d'ouverture: L'avenir de Python en Afrique</h3>
+                        <p>Une exploration des opportunités et défis pour l'écosystème Python en Afrique</p>
+                        <span class="schedule-speaker">Par Kofi Mensah</span>
+                    </div>
+                </div>
+                
+                <div class="schedule-item slide-up" data-delay="0.5">
+                    <div class="schedule-time">
+                        <p>10:45 - 12:15</p>
+                        <span class="schedule-track">Salle A</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Atelier: Python pour l'IA - Introduction pratique</h3>
+                        <p>Apprenez à utiliser les bibliothèques Python pour l'intelligence artificielle</p>
+                        <span class="schedule-speaker">Par David Osei</span>
+                    </div>
+                </div>
+                
+                <div class="schedule-item slide-up" data-delay="0.6">
+                    <div class="schedule-time">
+                        <p>12:30 - 14:00</p>
+                        <span class="schedule-track">Restaurant</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Déjeuner & Networking</h3>
+                        <p>Buffet et opportunités de réseautage</p>
+                    </div>
+                </div>
+                
+                <div class="schedule-item slide-up" data-delay="0.7">
+                    <div class="schedule-time">
+                        <p>14:15 - 15:45</p>
+                        <span class="schedule-track">Salle B</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Cybersécurité et Python: Protéger vos applications</h3>
+                        <p>Bonnes pratiques et outils pour sécuriser vos projets Python</p>
+                        <span class="schedule-speaker">Par Amina Diallo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="schedule-content" id="jour2">
+                <!-- Contenu pour le jour 2 -->
+                <div class="schedule-item">
+                    <div class="schedule-time">
+                        <p>09:00 - 10:00</p>
+                        <span class="schedule-track">Auditorium</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Keynote: Python et le futur du travail</h3>
+                        <p>Comment Python transforme les industries et crée de nouvelles opportunités</p>
+                        <span class="schedule-speaker">Par Sophie Nguyen</span>
+                    </div>
+                </div>
+                
+                <!-- Ajoutez d'autres sessions pour le jour 2 -->
+            </div>
+            
+            <div class="schedule-content" id="jour3">
+                <!-- Contenu pour le jour 3 -->
+                <div class="schedule-item">
+                    <div class="schedule-time">
+                        <p>09:00 - 10:00</p>
+                        <span class="schedule-track">Auditorium</span>
+                    </div>
+                    <div class="schedule-event">
+                        <h3>Keynote de clôture: Construire des communautés Python durables</h3>
+                        <p>Stratégies pour développer et maintenir des communautés Python locales actives</p>
+                        <span class="schedule-speaker">Par Invité Surprise</span>
+                    </div>
+                </div>
+                
+                <!-- Ajoutez d'autres sessions pour le jour 3 -->
+            </div>
+            
+            <div class="text-center" style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn">Télécharger le programme complet</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Appel à Orateurs -->
+    <section class="call-to-action" id="call">
+        <div class="container">
+            <h2>Appel à Orateurs</h2>
+            <p>Vous avez une expertise en Python et souhaitez la partager avec la communauté ? Soumettez votre proposition de conférence ou d'atelier pour PyCon Togo 2025 !</p>
+            
+            <div class="cta-box slide-up" data-delay="0.3">
+                <h3 class="cta-title">Proposez votre session jusqu'au 15 mars 2025</h3>
+                <p class="cta-text">
+                    Nous recherchons des conférences, des ateliers et des tutoriels sur tous les aspects de Python : 
+                    développement web, science des données, IA, DevOps, enseignement, applications pratiques, et bien plus.
+                </p>
+                <a href="#" class="btn">Soumettre une proposition</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Inscriptions -->
+    <section class="registration" id="registration">
+        <div class="container">
+            <h2>Inscriptions</h2>
+            <p>Réservez votre place pour PyCon Togo 2025 et profitez de tarifs avantageux en vous inscrivant tôt.</p>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card slide-up" data-delay="0.3" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); margin: 1rem; flex: 1; transition: var(--transition);">
+                    <h3 style="color: var(--accent-primary);">Pass Standard</h3>
+                    <div class="price" style="font-size: 2.5rem; font-weight: 700; margin: 1.5rem 0; color: var(--text-primary);">150 €</div>
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Accès à toutes les conférences</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Matériel de conférence</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Pauses café et déjeuners</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Accès aux enregistrements</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%;">S'inscrire</a>
+                </div>
+                
+                <div class="pricing-card slide-up" data-delay="0.4" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); margin: 1rem; flex: 1; transition: var(--transition); transform: scale(1.05); border: 2px solid var(--accent-primary);">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background-color: var(--accent-primary); color: var(--dark-bg); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.8rem;">RECOMMANDÉ</div>
+                    <h3 style="color: var(--accent-primary);">Pass VIP</h3>
+                    <div class="price" style="font-size: 2.5rem; font-weight: 700; margin: 1.5rem 0; color: var(--text-primary);">250 €</div>
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Tout ce qui est inclus dans le Pass Standard</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Accès aux ateliers exclusifs</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Dîner de gala avec les intervenants</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Goodies exclusifs de l'événement</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%;">S'inscrire</a>
+                </div>
+                
+                <div class="pricing-card slide-up" data-delay="0.5" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); margin: 1rem; flex: 1; transition: var(--transition);">
+                    <h3 style="color: var(--accent-primary);">Pass Étudiant</h3>
+                    <div class="price" style="font-size: 2.5rem; font-weight: 700; margin: 1.5rem 0; color: var(--text-primary);">50 €</div>
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Accès à toutes les conférences</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Matériel de conférence</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-check" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Pauses café et déjeuners</span>
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center;">
+                            <i class="fas fa-info-circle" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                            <span>Justificatif étudiant requis</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn" style="width: 100%;">S'inscrire</a>
+                </div>
+            </div>
+            
+            <div class="group-discount" style="margin-top: 3rem; text-align: center;">
+                <p>Intéressé par des inscriptions de groupe ? Contactez-nous pour des tarifs spéciaux pour les entreprises et les organisations.</p>
+                <a href="#contact" class="btn btn-outline">Nous contacter</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Sponsors -->
+    <section class="sponsors" id="sponsors">
+        <div class="container">
+            <h2>Nos Sponsors</h2>
+            <div class="sponsors-content">
+                <p>PyCon Togo 2025 est rendu possible grâce au soutien généreux de nos sponsors. Rejoignez-les pour soutenir la communauté Python en Afrique.</p>
+                
+                <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--accent-primary);">Sponsors Platine</h3>
+                <div class="sponsors-grid">
+                    <div class="sponsor-item slide-up" data-delay="0.3">
+                        <img src="/api/placeholder/200/80" alt="Sponsor 1">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="0.4">
+                        <img src="/api/placeholder/200/80" alt="Sponsor 2">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--accent-secondary);">Sponsors Or</h3>
+                <div class="sponsors-grid">
+                    <div class="sponsor-item slide-up" data-delay="0.5">
+                        <img src="/api/placeholder/150/60" alt="Sponsor 3">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="0.6">
+                        <img src="/api/placeholder/150/60" alt="Sponsor 4">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="0.7">
+                        <img src="/api/placeholder/150/60" alt="Sponsor 5">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text-secondary);">Sponsors Argent</h3>
+                <div class="sponsors-grid">
+                    <div class="sponsor-item slide-up" data-delay="0.8">
+                        <img src="/api/placeholder/120/50" alt="Sponsor 6">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="0.9">
+                        <img src="/api/placeholder/120/50" alt="Sponsor 7">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="1.0">
+                        <img src="/api/placeholder/120/50" alt="Sponsor 8">
+                    </div>
+                    <div class="sponsor-item slide-up" data-delay="1.1">
+                        <img src="/api/placeholder/120/50" alt="Sponsor 9">
+                    </div>
+                </div>
+                
+                <div class="become-sponsor">
+                    <h3>Devenez sponsor</h3>
+                    <p>Intéressé à devenir sponsor de PyCon Togo 2025 ? Découvrez nos différents packages et les avantages offerts.</p>
+                    <a href="#" class="btn">Télécharger le dossier de sponsoring</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Communauté -->
+    <section class="community" id="community">
+        <div class="container">
+            <h2>Rejoindre la Communauté</h2>
+            <p>PyCon Togo est plus qu'un événement, c'est une communauté de passionnés. Rejoignez-nous pour échanger et collaborer tout au long de l'année.</p>
+            
+            <div class="community-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <div class="community-card slide-up" data-delay="0.3" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); transition: var(--transition);">
+                    <div style="font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 1rem;">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem;">Discord</h3>
+                    <p style="margin-bottom: 1.5rem;">Rejoignez notre serveur Discord pour discuter avec d'autres pythonistas, poser vos questions et participer à des événements en ligne.</p>
+                    <a href="#" class="btn btn-outline">Rejoindre le Discord</a>
+                </div>
+                
+                <div class="community-card slide-up" data-delay="0.4" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); transition: var(--transition);">
+                    <div style="font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 1rem;">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem;">Twitter</h3>
+                    <p style="margin-bottom: 1.5rem;">Suivez-nous sur Twitter pour les dernières actualités, annonces et discussions autour de Python en Afrique.</p>
+                    <a href="#" class="btn btn-outline">Suivre sur Twitter</a>
+                </div>
+                
+                <div class="community-card slide-up" data-delay="0.5" style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 1rem; box-shadow: var(--box-shadow); transition: var(--transition);">
+                    <div style="font-size: 2.5rem; color: var(--accent-primary); margin-bottom: 1rem;">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem;">GitHub</h3>
+                    <p style="margin-bottom: 1.5rem;">Contribuez à nos projets open source et découvrez des ressources pour apprendre et enseigner Python.</p>
+                    <a href="#" class="btn btn-outline">Voir sur GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contactez-nous</h2>
+            <p>Vous avez des questions sur l'événement, le sponsoring ou autre chose ? N'hésitez pas à nous contacter.</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-method slide-up" data-delay="0.3">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Adresse</h4>
+                            <p>Hôtel 2 Février, Boulevard du Mono, Lomé, Togo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method slide-up" data-delay="0.4">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:contact@pycontogo.tg">contact@pycontogo.tg</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method slide-up" data-delay="0.5">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Téléphone</h4>
+                            <a href="tel:+22890123456">+228 90 12 34 56</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method slide-up" data-delay="0.6">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Heures d'ouverture</h4>
+                            <p>Lundi - Vendredi: 9h00 - 17h00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form slide-up" data-delay="0.7">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nom complet</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Sujet</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">PyCon <span>Togo</span> 2025</div>
+                    <p>La première conférence Python internationale au Togo, dédiée à la promotion et au développement de l'écosystème Python en Afrique.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Accueil</a></li>
+                        <li class="footer-link"><a href="#about">À propos</a></li>
+                        <li class="footer-link"><a href="#speakers">Intervenants</a></li>
+                        <li class="footer-link"><a href="#schedule">Programme</a></li>
+                        <li class="footer-link"><a href="#registration">Inscriptions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-section">
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Code de conduite</a></li>
+                        <li class="footer-link"><a href="#">Devenir sponsor</a></li>
+                        <li class="footer-link"><a href="#">FAQ</a></li>
+                        <li class="footer-link"><a href="#">Presse</a></li>
+                        <li class="footer-link"><a href="#">Bénévoles</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités et annonces.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Votre email" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 PyCon Togo. Tous droits réservés. | Conçu avec <i class="fas fa-heart" style="color: var(--accent-tertiary);"></i> par la communauté Python Togo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript pour les fonctionnalités interactives
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle du menu mobile
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Fermer le menu mobile lorsqu'un lien est cliqué
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Toggle du thème clair/sombre
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('light');
+                
+                if (document.documentElement.classList.contains('light')) {
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                } else {
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                }
+            });
+            
+            // Changement de style du header au scroll
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Fonctionnalité des onglets du programme
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const scheduleContents = document.querySelectorAll('.schedule-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons et contenus
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    scheduleContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    
+                    // Afficher le contenu correspondant
+                    const day = this.getAttribute('data-day');
+                    document.getElementById(day).classList.add('active');
+                });
+            });
+            
+            // Animation au scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.slide-up, .slide-right');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        const delay = element.getAttribute('data-delay') || 0;
+                        
+                        setTimeout(() => {
+                            element.style.animation = `${
+                                element.classList.contains('slide-up') ? 'slideUp' : 'slideRight'
+                            } 1s forwards`;
+                        }, delay * 1000);
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Exécuter une fois au chargement
+            
+            // Initialiser les particules dans la section héros
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffce00"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ffce00",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        });
+    </script>
+    
+    <!-- Script pour les particules -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</body>
+</html>
